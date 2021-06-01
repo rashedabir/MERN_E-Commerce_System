@@ -19,8 +19,8 @@ function Header() {
   };
 
   const styleMenu = {
-    left: menu ? 0 : "-100%"
-}
+    left: menu ? 0 : "-100%",
+  };
 
   const adminRouter = () => {
     return (
@@ -62,7 +62,9 @@ function Header() {
         </div>
         {isAdmin ? (
           <div className="logo">
-            <Link to="/"><i className="fas fa-users-cog"></i> ADMIN</Link>
+            <Link to="/">
+              <i className="fas fa-users-cog"></i> ADMIN
+            </Link>
           </div>
         ) : (
           <div className="logo">
@@ -75,6 +77,7 @@ function Header() {
           <li onClick={() => setMenu(!menu)}>
             <Link to="/"> {isAdmin ? "Products" : "Shop"} </Link>
           </li>
+
           {isAdmin && adminRouter()}
           {isLogged ? (
             loggedRouter()

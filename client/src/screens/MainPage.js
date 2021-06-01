@@ -22,7 +22,7 @@ function MainPage() {
       <Route path="/" exact component={Products} />
       <Route path="/login" exact component={isLogged ? NotFound : Login} />
       <Route path="/register" exact component={isLogged ? NotFound : Registration} />
-      <Route path="/cart" exact component={isLogged ? Cart : NotFound} />
+      <Route path="/cart" exact component={Cart} />
       <Route path="/details/:id" exact component={ProductDetail} />
       <Route path="/create_product" exact component={isAdmin ? CreateProduct : NotFound} />
       <Route path="/edit_product/:id" exact component={isAdmin ? CreateProduct : NotFound} />
