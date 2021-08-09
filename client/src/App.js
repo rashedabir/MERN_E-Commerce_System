@@ -4,6 +4,9 @@ import { DataProvider } from "./GlobalState";
 import Header from "./component/Header";
 import MainPage from "./screens/MainPage";
 import MessengerCustomerChat from "react-messenger-customer-chat";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 function App() {
   return (

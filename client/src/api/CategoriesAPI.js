@@ -6,7 +6,7 @@ function CategoriesAPI() {
   const [callback, setCallback] = useState(false);
 
   const getCategory = async () => {
-    const res = await axios.get("/api/category");
+    const res = await axios.get("https://weshopbd.herokuapp.com/api/category");
     setCategory(res.data.categories);
   };
 

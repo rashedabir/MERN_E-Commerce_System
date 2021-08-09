@@ -6,15 +6,18 @@ function UserAPI(token) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [cart, setCart] = useState([]);
   const [history, setHistory] = useState([]);
-  const [callback, setCallback] = useState(false)
+  const [callback, setCallback] = useState(false);
 
   useEffect(() => {
     if (token) {
       const getUser = async () => {
         try {
-          const res = await axios.get("/user/infor", {
-            headers: { Authorization: token },
-          });
+          const res = await axios.get(
+            "https://weshopbd.herokuapp.com/user/infor",
+            {
+              headers: { Authorization: token },
+            }
+          );
           setIsLogged(true);
           setCart(res.data.user.cart);
           res.data.user.role === 1 ? setIsAdmin(true) : setIsAdmin(false);
@@ -39,7 +42,7 @@ function UserAPI(token) {
       setCart([...cart, { ...product, quantity: 1 }]);
 
       await axios.patch(
-        "/user/addcart",
+        "https://weshopbd.herokuapp.com/user/addcart",
         { cart: [...cart, { ...product, quantity: 1 }] },
         {
           headers: { Authorization: token },
@@ -53,18 +56,20 @@ function UserAPI(token) {
   useEffect(() => {
     if (token) {
       const getHistory = async () => {
-        if(isAdmin){
-          const res = await axios.get("/api/order", {
+        if (isAdmin) {
+          const res = await axios.get(
+            "https://weshopbd.herokuapp.com/api/order",
+            {
+              headers: { Authorization: token },
+            }
+          );
+          setHistory(res.data);
+        } else {
+          const res = await axios.get("/user/history", {
             headers: { Authorization: token },
           });
           setHistory(res.data);
-        }else{
-          const res = await axios.get("/user/history", {
-          headers: { Authorization: token },
-        });
-        setHistory(res.data);
         }
-        
       };
       getHistory();
     }

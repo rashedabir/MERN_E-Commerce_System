@@ -34,7 +34,8 @@ const userCtrl = {
 
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        path: "/user/refresh_token",
+        secure: true,
+        sameSite: "none",
       });
 
       res.json({ accessToken });
@@ -76,7 +77,8 @@ const userCtrl = {
 
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        path: "/user/refresh_token",
+        secure: true,
+        sameSite: "none",
       });
 
       res.json({ accessToken });
@@ -86,7 +88,12 @@ const userCtrl = {
   },
   logout: async (req, res) => {
     try {
-      res.clearCookie("refreshToken", { path: "/user/refresh_token" });
+      res.clearCookie("refreshToken", {
+        httpOnly: true,
+        expires: new Date(0),
+        secure: true,
+        sameSite: "none",
+      });
       return res.json({ msg: "Logged Out" });
     } catch (error) {
       return res.status(500).json({ msg: error.message });

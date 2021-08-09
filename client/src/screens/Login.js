@@ -11,9 +11,10 @@ function Login() {
   const loginSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/user/login", { email: email, password: password });
-      localStorage.setItem("firstLogin", true);
-
+      await axios.post("https://weshopbd.herokuapp.com/user/login", {
+        email: email,
+        password: password,
+      });
       window.location.href = "/";
     } catch (error) {
       setError(error.response.data.msg);
@@ -86,11 +87,7 @@ function Login() {
           </div>
         </form>
       </div>
-      {error === "" ? (
-        " "
-      ) : (
-        <Error error={error} />
-      )}
+      {error === "" ? " " : <Error error={error} />}
     </>
   );
 }

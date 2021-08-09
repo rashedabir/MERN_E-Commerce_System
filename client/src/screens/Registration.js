@@ -13,14 +13,12 @@ function Registration() {
   const registerSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/user/register", {
+      await axios.post("https://weshopbd.herokuapp.com/user/register", {
         name: name,
         email: email,
         password: password,
         rePassword: rePassword,
       });
-
-      localStorage.setItem("firstLogin", true);
       window.location.href = "/";
     } catch (error) {
       setError(error.response.data.msg);

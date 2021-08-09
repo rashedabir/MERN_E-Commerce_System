@@ -18,7 +18,7 @@ function CashOnDelivaryBox({ total, fetchCart }) {
     e.preventDefault();
     try {
       await axios.post(
-        "api/order",
+        "https://weshopbd.herokuapp.com/api/order",
         {
           cart: cart,
           district: district,
@@ -42,11 +42,7 @@ function CashOnDelivaryBox({ total, fetchCart }) {
   return (
     <>
       <div style={{ marginTop: "10px" }}>
-        {error === "" ? (
-          " "
-        ) : (
-            <Error error={error} />
-        )}
+        {error === "" ? " " : <Error error={error} />}
       </div>
       <div className="order_detail-box">
         <div className="order_detail-form">

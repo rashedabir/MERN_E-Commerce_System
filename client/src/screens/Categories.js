@@ -19,14 +19,14 @@ function Categories() {
     try {
       if (edit) {
         await axios.put(
-          `/api/category/${id}`,
+          `https://weshopbd.herokuapp.com/api/category/${id}`,
           { name: category },
           { headers: { Authorization: token } }
         );
         alert("Category Updated");
       } else {
         await axios.post(
-          "/api/category",
+          "https://weshopbd.herokuapp.com/api/category",
           { name: category },
           { headers: { Authorization: token } }
         );
@@ -49,13 +49,13 @@ function Categories() {
   const deleteCategory = async (id) => {
     setId(id);
     try {
-      if(window.confirm("Do you want to Delete this Category?")){
+      if (window.confirm("Do you want to Delete this Category?")) {
         await axios.delete(
-          `/api/category/${id}`,
+          `https://weshopbd.herokuapp.com/api/category/${id}`,
           { headers: { Authorization: token } }
         );
       }
-      setCallback(!callback)
+      setCallback(!callback);
     } catch (error) {
       setError(error.response.data.msg);
     }
@@ -78,7 +78,14 @@ function Categories() {
                   >
                     edit
                   </button>
-                  <button className="btn category_delete" onClick={() => {deleteCategory(category._id)}}>delete</button>
+                  <button
+                    className="btn category_delete"
+                    onClick={() => {
+                      deleteCategory(category._id);
+                    }}
+                  >
+                    delete
+                  </button>
                 </div>
               </div>
             ))
@@ -105,11 +112,7 @@ function Categories() {
               </button>
             </form>
             <div style={{ marginTop: "20px" }}>
-              {error === "" ? (
-                " "
-              ) : (
-                <Error error={error} />
-              )}
+              {error === "" ? " " : <Error error={error} />}
             </div>
           </div>
         ) : (

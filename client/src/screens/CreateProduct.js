@@ -56,12 +56,16 @@ function CreateProduct() {
       let formData = new FormData();
       formData.append("file", file);
       setLoading(true);
-      const res = await axios.post("/api/upload", formData, {
-        headers: {
-          "content-type": "multipart/form-data",
-          Authorization: token,
-        },
-      });
+      const res = await axios.post(
+        "https://weshopbd.herokuapp.com/api/upload",
+        formData,
+        {
+          headers: {
+            "content-type": "multipart/form-data",
+            Authorization: token,
+          },
+        }
+      );
       setLoading(false);
       setImage(res.data);
     } catch (error) {
@@ -74,7 +78,7 @@ function CreateProduct() {
     try {
       if (onEdit) {
         await axios.put(
-          `/api/products/${_id}`,
+          `https://weshopbd.herokuapp.com/api/products/${_id}`,
           {
             product_id: productId,
             title: title,
@@ -87,7 +91,7 @@ function CreateProduct() {
         );
       } else {
         await axios.post(
-          "/api/products",
+          "https://weshopbd.herokuapp.com/api/products",
           {
             product_id: productId,
             title: title,
@@ -114,7 +118,7 @@ function CreateProduct() {
     try {
       setLoading(true);
       await axios.post(
-        "/api/destroy",
+        "https://weshopbd.herokuapp.com/api/destroy",
         { public_id: image.public_id },
         {
           headers: { Authorization: token },

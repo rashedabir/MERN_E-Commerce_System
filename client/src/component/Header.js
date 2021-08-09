@@ -11,7 +11,7 @@ function Header() {
   const [cart] = state.userAPI.cart;
 
   const logOut = async () => {
-    await axios.get("/user/logout");
+    await axios.get("https://weshopbd.herokuapp.com/user/logout");
     localStorage.clear();
     setIsAdmin(false);
     setIsLogged(false);

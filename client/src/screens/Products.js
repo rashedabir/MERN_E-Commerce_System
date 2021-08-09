@@ -23,21 +23,24 @@ function Products() {
 
   const deleteProduct = async (id, public_id) => {
     try {
-        setLoading(true);
-        const deleteImg = axios.post(
-          "/api/destroy",
-          { public_id },
-          {
-            headers: { Authorization: token },
-          }
-        );
-        const deleteProduct = axios.delete(`/api/products/${id}`, {
+      setLoading(true);
+      const deleteImg = axios.post(
+        "https://weshopbd.herokuapp.com/api/destroy",
+        { public_id },
+        {
           headers: { Authorization: token },
-        });
-        await deleteImg;
-        await deleteProduct;
-        setCallback(!callback);
-        setLoading(false);
+        }
+      );
+      const deleteProduct = axios.delete(
+        `https://weshopbd.herokuapp.com/api/products/${id}`,
+        {
+          headers: { Authorization: token },
+        }
+      );
+      await deleteImg;
+      await deleteProduct;
+      setCallback(!callback);
+      setLoading(false);
     } catch (error) {
       alert(error.response.data.msg);
     }
@@ -63,7 +66,7 @@ function Products() {
 
   return (
     <>
-    <Filters />
+      <Filters />
       {isAdmin && (
         <div className="delete-all">
           <span>Select all</span>
@@ -84,7 +87,7 @@ function Products() {
         })}
       </div>
       <LoadMore />
-        {products.length === 0 && "Loading..."}
+      {products.length === 0 && "Loading..."}
     </>
   );
 }

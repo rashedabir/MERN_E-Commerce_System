@@ -61,7 +61,7 @@ function Cart() {
 
   const fetchCart = async (cart) => {
     await axios.patch(
-      "/user/addcart",
+      "https://weshopbd.herokuapp.com/user/addcart",
       { cart: cart },
       {
         headers: { Authorization: token },
@@ -76,8 +76,6 @@ function Cart() {
       </h2>
     );
   }
-
-  
 
   return (
     <>
@@ -150,7 +148,7 @@ function Cart() {
             >
               order
             </button>
-            
+
             {showcod ? (
               <CashOnDelivaryBox total={total} fetchCart={fetchCart} />
             ) : null}

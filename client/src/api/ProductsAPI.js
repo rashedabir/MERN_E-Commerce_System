@@ -13,7 +13,7 @@ function ProductsAPI() {
   useEffect(() => {
     const getProducts = async () => {
       const res = await axios.get(
-        `/api/products?limit=${
+        `https://weshopbd.herokuapp.com/api/products?limit=${
           page * 6
         }&${category}&${sort}&title[regex]=${search}`
       );
