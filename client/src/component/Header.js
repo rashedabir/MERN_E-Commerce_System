@@ -97,7 +97,7 @@ function Header() {
         ) : (
           <div className="cart-icon">
             <span> {cart.length} </span>
-            <Link to="/cart">
+            <Link to={isLogged ? "/cart" : "/login"}>
               <i className="fas fa-shopping-cart"></i>
             </Link>
           </div>

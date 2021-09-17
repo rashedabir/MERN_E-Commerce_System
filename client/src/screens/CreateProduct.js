@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { GlobalState } from "../GlobalState";
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function CreateProduct() {
   const state = useContext(GlobalState);
@@ -9,7 +10,6 @@ function CreateProduct() {
   const [categories] = state.categoryAPI.category;
   const [image, setImage] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const [productId, setProductId] = useState("");
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState();
@@ -69,7 +69,7 @@ function CreateProduct() {
       setLoading(false);
       setImage(res.data);
     } catch (error) {
-      setError(error.response.data.msg);
+      toast.error(error.response.data.msg);
     }
   };
 
@@ -89,6 +89,7 @@ function CreateProduct() {
           },
           { headers: { Authorization: token } }
         );
+        toast.info("Product Updated");
       } else {
         await axios.post(
           "https://weshopbd.herokuapp.com/api/products",
@@ -102,11 +103,12 @@ function CreateProduct() {
           },
           { headers: { Authorization: token } }
         );
+        toast.success("Product Created");
       }
       setCallback(!callback);
       history.push("/");
     } catch (error) {
-      setError(error.response.data.msg);
+      toast.error(error.response.data.msg);
     }
   };
 
@@ -127,19 +129,12 @@ function CreateProduct() {
       setLoading(false);
       setImage(false);
     } catch (err) {
-      setError(err.response.data.msg);
+      toast.error(err.response.data.msg);
     }
   };
 
   return (
     <>
-      {error === "" ? (
-        " "
-      ) : (
-        <div className="alert alert-danger alert-box mt-3" role="alert">
-          {error}
-        </div>
-      )}
       <div className="create_product">
         <div className="upload">
           <input type="file" name="file" id="file_up" onChange={handleUpload} />

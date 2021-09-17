@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function UserAPI(token) {
   const [isLogged, setIsLogged] = useState(false);
@@ -22,7 +23,7 @@ function UserAPI(token) {
           setCart(res.data.user.cart);
           res.data.user.role === 1 ? setIsAdmin(true) : setIsAdmin(false);
         } catch (error) {
-          alert(error.response.data.msg);
+          toast.error(error.response.data.msg);
         }
       };
       getUser();
@@ -31,7 +32,7 @@ function UserAPI(token) {
 
   const addCart = async (product) => {
     if (!isLogged) {
-      return alert("Please Login or Registration to Continue Buying");
+      return toast.warn("Please Login or Registration to Continue Buying");
     }
 
     const check = cart.every((item) => {
@@ -49,7 +50,7 @@ function UserAPI(token) {
         }
       );
     } else {
-      alert("This Product is Already Added in Cart");
+      toast.warn("This Product is Already Added in Cart");
     }
   };
 

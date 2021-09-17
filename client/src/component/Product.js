@@ -6,7 +6,7 @@ function Product({ product, deleteProduct, handleCheck }) {
   const state = useContext(GlobalState);
   const [isAdmin] = state.userAPI.isAdmin;
   const addCart = state.userAPI.addCart;
-  
+  const [isLogged] = state.userAPI.isLogged;
 
   return (
     <div className="product-card">
@@ -15,7 +15,9 @@ function Product({ product, deleteProduct, handleCheck }) {
           type="checkbox"
           checked={product.checked}
           className="form-check-input"
-          onChange={() => {handleCheck(product._id)}}
+          onChange={() => {
+            handleCheck(product._id);
+          }}
         />
       ) : (
         ""
@@ -23,8 +25,7 @@ function Product({ product, deleteProduct, handleCheck }) {
       <img src={product.images.url} alt={product.title} />
       <div className="product-box">
         <h2 title={product.title}>
-          {" "}
-          <Link to={`/details/${product._id}`}>{product.title}</Link>{" "}
+          <Link to={`/details/${product._id}`}>{product.title}</Link>
         </h2>
         <span>৳ {product.price} </span>
         <p> {product.description} </p>
@@ -34,7 +35,9 @@ function Product({ product, deleteProduct, handleCheck }) {
           <Link
             id="btn-delete"
             to="/"
-            onClick={() => {deleteProduct(product._id, product.images.public_id)}}
+            onClick={() => {
+              deleteProduct(product._id, product.images.public_id);
+            }}
           >
             delete
           </Link>
@@ -44,14 +47,15 @@ function Product({ product, deleteProduct, handleCheck }) {
         </div>
       ) : (
         <div className="row_btn">
-          <button
+          <Link
             id="btn-buy"
             onClick={() => {
               addCart(product);
             }}
+            to={isLogged ? "/cart" : "/login"}
           >
             buy
-          </button>
+          </Link>
           <Link id="btn-view" to={`/details/${product._id}`}>
             view
           </Link>

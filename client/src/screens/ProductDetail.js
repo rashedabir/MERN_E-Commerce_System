@@ -7,6 +7,7 @@ function ProductDetail() {
   const params = useParams();
   const state = useContext(GlobalState);
   const [isAdmin] = state.userAPI.isAdmin;
+  const [isLogged] = state.userAPI.isLogged;
   const [products] = state.productsAPI.products;
   const addCart = state.userAPI.addCart;
   const [details, setDetails] = useState([]);
@@ -36,19 +37,21 @@ function ProductDetail() {
           <br></br>
           <p className="description"> {details.description} </p>
           <p className="sold"> sold : {details.sold} </p>
-          {
-            isAdmin ? null : <div className="row-btn">
-            <Link
-              onClick={() => {
-                addCart(details);
-              }}
-              id="buy-btn"
-              to="/cart"
-            >
-              buy now
-            </Link>
-          </div>
-          }
+          {isAdmin ? null : (
+            <div className="row-btn">
+              <Link
+                onClick={() => {
+                  if (isLogged) {
+                    addCart(details);
+                  }
+                }}
+                id="buy-btn"
+                to={isLogged ? "/cart" : "/login"}
+              >
+                {isLogged ? "buy now" : "login to buy product"}
+              </Link>
+            </div>
+          )}
         </div>
       </div>
       <div className="releated_products">

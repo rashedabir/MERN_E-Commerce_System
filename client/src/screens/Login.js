@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Error from "../component/Error";
+import { toast } from "react-toastify";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [show, setShow] = useState(false);
 
   const loginSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +17,7 @@ function Login() {
       });
       window.location.href = "/";
     } catch (error) {
-      setError(error.response.data.msg);
+      toast.error(error.response.data.msg);
     }
   };
 
@@ -25,15 +25,17 @@ function Login() {
     let x = document.getElementById("exampleInputPassword1");
     if (x.type === "password") {
       x.type = "text";
+      setShow(true);
     } else {
       x.type = "password";
+      setShow(false);
     }
   };
 
   return (
     <>
       <div className="login-form">
-        <h3>login</h3>
+        <h3 className="py-5">login</h3>
         <form onSubmit={loginSubmit} autoComplete="off">
           <div className="email-box">
             <i className="fas fa-user"></i>
@@ -70,10 +72,10 @@ function Login() {
               id="flexCheckDefault"
             />
             <label className="form-check-label" for="flexCheckDefault">
-              Show Password
+              {show ? "Hide Password" : "Show Password"}
             </label>
           </div>
-          <div className="btn-box">
+          <div className="btn-box py-4">
             <div className="register">
               <Link id="register" to="/register">
                 registration
@@ -87,7 +89,6 @@ function Login() {
           </div>
         </form>
       </div>
-      {error === "" ? " " : <Error error={error} />}
     </>
   );
 }

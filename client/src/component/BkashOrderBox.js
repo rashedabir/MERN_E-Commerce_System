@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { GlobalState } from "../GlobalState";
 import axios from "axios";
-import Error from "./Error";
+import { toast } from "react-toastify";
 
 function BkashOrderBox({ total, fetchCart }) {
   const state = useContext(GlobalState);
@@ -11,7 +11,6 @@ function BkashOrderBox({ total, fetchCart }) {
   const [district, setDistrict] = useState("");
   const [phone, setPhone] = useState("");
   const [trxid, setTrxid] = useState("");
-  const [error, setError] = useState("");
   const [cart, setCart] = state.userAPI.cart;
 
   const order = async (e) => {
@@ -31,20 +30,18 @@ function BkashOrderBox({ total, fetchCart }) {
           headers: { Authorization: token },
         }
       );
-      alert("Order Completed");
+      toast.success("Order Completed");
       setCart([]);
       fetchCart([]);
       setCallback(!calback);
     } catch (error) {
-      setError(error.response.data.msg);
+      toast.error(error.response.data.msg);
     }
   };
 
   return (
     <>
-      <div style={{ marginTop: "10px" }}>
-        {error === "" ? " " : <Error error={error} />}
-      </div>
+      <div style={{ marginTop: "10px" }}></div>
       <div className="order_detail-box">
         <p>
           নাম্বারটিতে "সেন্ড মানি" তে টাকা পাঠিয়ে নিচের ফর্মটি ফিলাপ করে সাবমিট

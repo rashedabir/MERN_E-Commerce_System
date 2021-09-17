@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { GlobalState } from "../GlobalState";
 import axios from "axios";
 import Error from "../component/Error";
+import { toast } from "react-toastify";
 
 function Categories() {
   const state = useContext(GlobalState);
@@ -23,21 +24,21 @@ function Categories() {
           { name: category },
           { headers: { Authorization: token } }
         );
-        alert("Category Updated");
+        toast.success("Category Updated");
       } else {
         await axios.post(
           "https://weshopbd.herokuapp.com/api/category",
           { name: category },
           { headers: { Authorization: token } }
         );
-        alert("Created a Category");
+        toast.success("Created Category");
       }
       setError("");
       setEdit(false);
       setCategory("");
       setCallback(!callback);
     } catch (error) {
-      setError(error.response.data.msg);
+      toast.error(error.response.data.msg);
     }
   };
 
@@ -56,8 +57,9 @@ function Categories() {
         );
       }
       setCallback(!callback);
+      toast.info("Category Deleted");
     } catch (error) {
-      setError(error.response.data.msg);
+      toast.error(error.response.data.msg);
     }
   };
 

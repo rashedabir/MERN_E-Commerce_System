@@ -19,7 +19,7 @@ function App() {
           </div>
         </Router>
       </DataProvider>
-      <MessengerCustomerChat pageId="103973174662277" appId="162221891965882" />
+      <MessengerCustomerChat pageId="103973174662277" appId="587429252625964" />
     </div>
   );
 }

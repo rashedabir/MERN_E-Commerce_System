@@ -4,6 +4,7 @@ import { GlobalState } from "../GlobalState";
 import axios from "axios";
 import BkashOrderBox from "../component/BkashOrderBox";
 import CashOnDelivaryBox from "../component/CashOnDelivaryBox";
+import { toast } from "react-toastify";
 
 function Cart() {
   const state = useContext(GlobalState);
@@ -56,6 +57,7 @@ function Cart() {
       });
       setCart([...cart]);
       fetchCart(cart);
+      toast.info("Cart Deleted");
     }
   };
 

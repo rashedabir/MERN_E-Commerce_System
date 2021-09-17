@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Error from "../component/Error";
+import { toast } from "react-toastify";
 
 function Registration() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
-  const [error, setError] = useState("");
+  const [show, setShow] = useState(false);
 
   const registerSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ function Registration() {
       });
       window.location.href = "/";
     } catch (error) {
-      setError(error.response.data.msg);
+      toast.error(error.response.data.msg);
     }
   };
 
@@ -31,16 +31,18 @@ function Registration() {
     if (x.type === "password" && y.type === "password") {
       x.type = "text";
       y.type = "text";
+      setShow(true);
     } else {
       x.type = "password";
       y.type = "password";
+      setShow(false);
     }
   };
 
   return (
     <>
       <div className="login-form">
-        <h3>register</h3>
+        <h3 className="py-5">register</h3>
         <form onSubmit={registerSubmit} autoComplete="off">
           <div className="email-box">
             <i className="fas fa-user"></i>
@@ -93,10 +95,10 @@ function Registration() {
               id="flexCheckDefault"
             />
             <label className="form-check-label" for="flexCheckDefault">
-              Show Passwords
+              {show ? "Hide Password" : "Show Password"}
             </label>
           </div>
-          <div className="btn-box">
+          <div className="btn-box py-4">
             <div className="register">
               <Link id="register" to="/login">
                 login here
@@ -110,7 +112,6 @@ function Registration() {
           </div>
         </form>
       </div>
-      {error === "" ? "" : <Error error={error} />}
     </>
   );
 }

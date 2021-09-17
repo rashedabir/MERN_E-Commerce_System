@@ -4,6 +4,8 @@ import { GlobalState } from "../GlobalState";
 import axios from "axios";
 import LoadMore from "../component/LoadMore";
 import Filters from "../component/Filters";
+import Loading from "../component/Loading";
+import { toast } from "react-toastify";
 
 function Products() {
   const state = useContext(GlobalState);
@@ -42,7 +44,7 @@ function Products() {
       setCallback(!callback);
       setLoading(false);
     } catch (error) {
-      alert(error.response.data.msg);
+      toast.error(error.response.data.msg);
     }
   };
 
@@ -87,7 +89,7 @@ function Products() {
         })}
       </div>
       <LoadMore />
-      {products.length === 0 && "Loading..."}
+      {products.length === 0 && <Loading />}
     </>
   );
 }

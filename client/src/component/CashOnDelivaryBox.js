@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { GlobalState } from "../GlobalState";
 import axios from "axios";
-import Error from "./Error";
+import { toast } from "react-toastify";
 
 function CashOnDelivaryBox({ total, fetchCart }) {
   const state = useContext(GlobalState);
@@ -11,7 +11,6 @@ function CashOnDelivaryBox({ total, fetchCart }) {
   const [address, setAddress] = useState("");
   const [district, setDistrict] = useState("");
   const [phone, setPhone] = useState("");
-  const [error, setError] = useState("");
   const trxid = "";
 
   const order = async (e) => {
@@ -31,19 +30,17 @@ function CashOnDelivaryBox({ total, fetchCart }) {
           headers: { Authorization: token },
         }
       );
-      alert("Order Completed");
+      toast.success("Order Completed");
       setCart([]);
       fetchCart([]);
       setCallback(!calback);
     } catch (error) {
-      setError(error.response.data.msg);
+      toast.error(error.response.data.msg);
     }
   };
   return (
     <>
-      <div style={{ marginTop: "10px" }}>
-        {error === "" ? " " : <Error error={error} />}
-      </div>
+      <div style={{ marginTop: "10px" }}></div>
       <div className="order_detail-box">
         <div className="order_detail-form">
           <form onSubmit={order}>
